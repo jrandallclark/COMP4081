@@ -1,0 +1,44 @@
+<h1>Contact Us</h1>
+
+<p>We welcome your feedback. Please submit the form below to let us know what you think, etc.</p>
+
+<h2>Feeback</h2>
+
+<% if local_assigns.has_key? :status_msg %>
+  <p><%= status_msg %></p>
+<% end %>
+
+<!--Feeback form-->
+<%= form_with url: leave_feedback_path, local: true, method: :post do %>
+
+<div>
+  <%= label_tag "name" %>
+  <%= text_field_tag "name", feedback.fetch(:name, nil) %>
+</div>
+<div>
+  <%= label_tag "email" %>
+  <%= email_field_tag "email", feedback.fetch(:email, nil) %>
+</div>
+<div>
+  <span>Can we contact you by email?</span>
+  <div>
+    <%= radio_button_tag "reply", true, true %>
+    <%= label_tag "reply_yes", 'Yes' %>
+  </div>
+  <div>
+    <%= radio_button_tag "reply", false, false %>
+    <%= label_tag "reply_no", 'No' %>
+  </div>
+</div>
+<div>
+  <%= label_tag "feedback_type" %>
+  <%= select_tag "feedback_type", options_for_select([ "Review", "Bug Report", ]), prompt: 'Choose one...' %>
+</div>
+<div>
+  <%= label_tag "message" %><br/>
+  <%= text_area_tag "message", nil, size: "27x7" %>
+</div>
+<%= submit_tag "Send Feedback" %>
+<% end %>
+
+<p><%= link_to 'Welcome', welcome_path %></p>
